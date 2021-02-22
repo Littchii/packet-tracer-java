@@ -19,4 +19,13 @@ public class Client extends Device {
         ip = i;
     }
 	
+    @Override
+    public boolean equals(Object o) {
+    	if(o instanceof Client) {
+    		Client other = (Client) o;
+    		return ip.equals(other.ip) || name.equals(other.name);
+    	}
+    	return false;
+    }
+	
 }
