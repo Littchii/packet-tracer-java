@@ -20,7 +20,7 @@ public class Web {
 		return networks;
 	}
 	
-	public List<Client> getClient() {
+	public List<Client> getClients() {
 		return clients;
 	}
 	
@@ -48,21 +48,13 @@ public class Web {
 			Client laptop = new Client(name, ip);
 			if(! clients.contains(laptop)) {
 				clients.add(laptop);
-				System.out.println("\n## Le laptop " + name+" avec l'ip "+ ip + " a bien été crée ! ##\n");
+				System.out.println("\n## Le laptop " + name + " avec l'ip " + ip + " a bien été crée ! ##\n");
 			} else {
 				System.out.println("Le laptop " + name+ "/" + ip + " existe déjà !");
 			}
 		} else {
 			System.out.println("Veuillez renseigner les deux paramètres demandés !");
 		}
-	}
-	
-	public List<Network> showNetworks() {
-		return networks;
-	}
-	
-	public List<Client> showClients() {
-		return clients;
 	}
 	
 }

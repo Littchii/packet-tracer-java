@@ -1,6 +1,10 @@
 package servers;
 
+import java.util.List;
 import java.util.Scanner;
+
+import clients.Client;
+import project.Network;
 
 public class Controller {
 	
@@ -19,7 +23,9 @@ public class Controller {
 		System.out.println("\nQue voulez-vous faire ?\n");
 		System.out.println("1. Créer un nouveau réseau");
 		System.out.println("2. Créer un nouvel ordi portable");
-		System.out.println("3. Créer un nouvel ordi fix");
+		System.out.println("3. Créer un nouveau switch");
+		System.out.println("4. Créer un nouveau routeur");
+		System.out.println("5. Connecter 2 appareils par un câble");
 		System.out.println("-----------------------------");
 		System.out.println("10. Voir la liste des réseaux");
 		System.out.println("11. Voir la liste des clients\n");
@@ -37,7 +43,7 @@ public class Controller {
 					options();
 					break;
 				case 10:
-					showNetwork();
+					showNetworks();
 					options();
 					break;
 				case 11:
@@ -90,12 +96,22 @@ public class Controller {
 		web.addLaptop(name, ip);
 	}
 	
-	private void showNetwork() {
-		System.out.println(web.showNetworks());
+	private void showNetworks() {
+		List<Network> networks = web.getNetworks();
+		if(networks.isEmpty()) {
+			System.out.println("Aucun réseau a été crée !");
+		} else {
+			System.out.println(networks);
+		}
 	}
 	
 	private void showClients() {
-		System.out.println(web.showClients());
+		List<Client> clients = web.getClients();
+		if(clients.isEmpty()) {
+			System.out.println("Aucun client a été crée !");
+		} else {
+			System.out.println(clients);
+		}
 	}
 	
 }
