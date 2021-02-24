@@ -10,10 +10,12 @@ public class Web {
 	
 	private List<Network> networks;
 	private List<Client> clients;
+	private List<Server> servers;
 	
 	public Web() {
 		networks = new ArrayList<>();
 		clients = new ArrayList<>();
+		servers = new ArrayList<>();
 	}
 	
 	public List<Network> getNetworks() {
@@ -25,19 +27,16 @@ public class Web {
 	}
 	
 	public void addNetwork(String ip, String mask) {	
-		String m;
 		Network tmp;
 		if(mask.isEmpty()) {
-			m = "24";
 			tmp = new Network(ip);
 		} else {
-			m = mask;
 			tmp = new Network(ip, mask);
 		}
 		
 		if(! networks.contains(tmp)) {
 			networks.add(tmp);
-			System.out.println("\n## Le réseau " + ip+"/"+m + " a bien été crée ! ##\n");
+			System.out.println("\n## Le réseau " + ip + "/" + tmp.getMasque() + " a bien été crée ! ##\n");
 		} else {
 			System.out.println("\n## Le réseau existe déjà ! ##");
 		}
@@ -54,6 +53,22 @@ public class Web {
 			}
 		} else {
 			System.out.println("Veuillez renseigner les deux paramètres demandés !");
+		}
+	}
+	
+	public void addSwitch(String name, int interfaces) {
+		Switch tmp;
+		if(interfaces == 0) {
+			tmp = new Switch(name);
+		} else {
+			tmp = new Switch(name, interfaces);
+		}
+		
+		if(! servers.contains(tmp)) {
+			servers.add(tmp);
+			System.out.println("\n## Le Switch " + name + " avec " + tmp.getInterface() + " interfaces a été crée ##\n");
+		} else {
+			System.out.println("\n## Le Switch " + name + " existe déjà ! ##");
 		}
 	}
 	

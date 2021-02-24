@@ -42,6 +42,10 @@ public class Controller {
 					addLaptop();
 					options();
 					break;
+				case 3:
+					addSwitch();
+					options();
+					break;
 				case 10:
 					showNetworks();
 					options();
@@ -94,6 +98,16 @@ public class Controller {
 		System.out.print("Quel est nom de votre laptop ? ");
 		String name = scan.nextLine();
 		web.addLaptop(name, ip);
+	}
+	
+	private void addSwitch() {
+		System.out.print("Quel est le nom de votre Switch ? ");
+		scan = new Scanner(System.in);
+		String name = scan.nextLine();
+		System.out.print("Nombre d'interfaces pour votre Switch ? (par défaut 10) ");
+		String interfaces = scan.nextLine();
+		String s = interfaces.isEmpty() ? "0" : interfaces;
+		web.addSwitch(name, Integer.parseInt(s));
 	}
 	
 	private void showNetworks() {

@@ -45,4 +45,13 @@ public class Device {
 		return name;
 	}
 	
+    @Override
+    public boolean equals(Object o) {
+    	if(o instanceof Device) {
+    		Device other = (Device) o;
+    		return name.equals(other.name);
+    	}
+    	return false;
+    }
+	
 }
