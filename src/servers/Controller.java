@@ -28,7 +28,8 @@ public class Controller {
 		System.out.println("5. Connecter 2 appareils par un câble");
 		System.out.println("-----------------------------");
 		System.out.println("10. Voir la liste des réseaux");
-		System.out.println("11. Voir la liste des clients\n");
+		System.out.println("11. Voir la liste des clients");
+		System.out.println("12. Voir la liste des serveurs\n");
 		System.out.print("Choisir un chiffre : ");
 		scan = new Scanner(System.in);
 		if(scan.hasNextInt()) {
@@ -52,6 +53,10 @@ public class Controller {
 					break;
 				case 11:
 					showClients();
+					options();
+					break;
+				case 12:
+					showServers();
 					options();
 					break;
 			}
@@ -125,6 +130,15 @@ public class Controller {
 			System.out.println("Aucun client a été crée !");
 		} else {
 			System.out.println(clients);
+		}
+	}
+	
+	private void showServers() {
+		List<Server> servers = web.getServers();
+		if(servers.isEmpty()) {
+			System.out.println("Aucun serveur a été crée !");
+		} else {
+			System.out.println(servers);
 		}
 	}
 	

@@ -26,6 +26,10 @@ public class Web {
 		return clients;
 	}
 	
+	public List<Server> getServers() {
+		return servers;
+	}
+	
 	public void addNetwork(String ip, String mask) {	
 		Network tmp;
 		if(mask.isEmpty()) {

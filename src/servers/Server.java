@@ -16,7 +16,7 @@ public class Server extends Device {
     }
 	
 	public String toString() {
-		return type + " qui se nomme \"" + name + "\" j'ai " + getInterface() +" interfaces qui sont : " + inter();
+		return type + " \"" + name + "\" avec " + getInterface() +" interfaces";
 	}
 	
     @Override
