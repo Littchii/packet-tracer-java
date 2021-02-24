@@ -1,10 +1,16 @@
-package servers;
+package controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cables.Cable;
 import clients.Client;
+import project.Device;
 import project.Network;
+import servers.Interface;
+import servers.Router;
+import servers.Server;
+import servers.Switch;
 
 public class Web {
 	
@@ -51,9 +57,9 @@ public class Web {
 			Client laptop = new Client(name, ip);
 			if(! clients.contains(laptop)) {
 				clients.add(laptop);
-				System.out.println("\n## Le laptop " + name + " avec l'ip " + ip + " a bien été crée ! ##\n");
+				System.out.println("\n## L'ordinateur " + name + " avec l'ip " + ip + " a bien été crée ! ##\n");
 			} else {
-				System.out.println("Le laptop " + name+ "/" + ip + " existe déjà !");
+				System.out.println("L'ordinateur " + name+ "/" + ip + " existe déjà !");
 			}
 		} else {
 			System.out.println("Veuillez renseigner les deux paramètres demandés !");
@@ -61,19 +67,34 @@ public class Web {
 	}
 	
 	public void addSwitch(String name, int interfaces) {
-		Switch tmp;
-		if(interfaces == 0) {
-			tmp = new Switch(name);
-		} else {
-			tmp = new Switch(name, interfaces);
-		}
-		
+		addServer(interfaces == 0 ? new Switch(name) : new Switch(name, interfaces));
+	}
+	
+	public void addRouter(String name, int interfaces) {
+		addServer(interfaces == 0 ? new Router(name) : new Router(name, interfaces));
+	}
+	
+	public void connectDevice(Interface i1, Interface i2, Device d1, Device d2) {
+		Cable cbl;
+		cbl = new Cable(i1, i2, d1, d2);
+		System.out.println(cbl);
+	}
+	
+	private void addServer(Server tmp) {
 		if(! servers.contains(tmp)) {
 			servers.add(tmp);
-			System.out.println("\n## Le Switch " + name + " avec " + tmp.getInterface() + " interfaces a été crée ##\n");
+			displayServerSuccess(tmp);
 		} else {
-			System.out.println("\n## Le Switch " + name + " existe déjà ! ##");
+			displayServerError(tmp);
 		}
+	}
+	
+	private void displayServerSuccess(Server s) {
+		System.out.println("\n## Le " + s.getType() + " " + s.getName() + " avec " + s.getInterface() + " interfaces a été crée ##\n");
+	}
+	
+	private void displayServerError(Server s) {
+		System.out.println("\n## Le "+ s.getType() + " " + s.getName() + " existe déjà ! ##");
 	}
 	
 }

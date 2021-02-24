@@ -1,6 +1,6 @@
 package project;
 
-import servers.Controller;
+import controller.Controller;
 
 public class Main {
 	

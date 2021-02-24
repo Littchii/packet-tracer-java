@@ -41,10 +41,6 @@ public class Device {
 		return interfaces.size();
 	}
 	
-	public String toString() {
-		return name;
-	}
-	
     @Override
     public boolean equals(Object o) {
     	if(o instanceof Device) {
@@ -53,5 +49,10 @@ public class Device {
     	}
     	return false;
     }
+	
+    @Override
+	public String toString() {
+		return name;
+	}
 	
 }

@@ -6,7 +6,7 @@ public class Server extends Device {
 	
 	protected String type;
 	
-	public Server(String name, String t, int nb) {
+	public Server(String name, int nb, String t) {
 		super(name, nb);
 		type = t;
 	}

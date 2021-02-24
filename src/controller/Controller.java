@@ -1,10 +1,11 @@
-package servers;
+package controller;
 
 import java.util.List;
 import java.util.Scanner;
 
 import clients.Client;
 import project.Network;
+import servers.Server;
 
 public class Controller {
 	
@@ -37,29 +38,30 @@ public class Controller {
 			switch(v) {
 				case 1:
 					addNetwork();
-					options();
 					break;
 				case 2:
 					addLaptop();
-					options();
 					break;
 				case 3:
 					addSwitch();
-					options();
+					break;
+				case 4:
+					addRouter();
+					break;
+				case 5:
+					connectDevice();
 					break;
 				case 10:
 					showNetworks();
-					options();
 					break;
 				case 11:
 					showClients();
-					options();
 					break;
 				case 12:
 					showServers();
-					options();
 					break;
 			}
+			options();
 		} else {
 			System.out.println("\nVous devez rentrer un chiffre !\n");
 			start();
@@ -106,13 +108,29 @@ public class Controller {
 	}
 	
 	private void addSwitch() {
-		System.out.print("Quel est le nom de votre Switch ? ");
+		System.out.print("Quel est le nom de votre switch ? ");
 		scan = new Scanner(System.in);
 		String name = scan.nextLine();
-		System.out.print("Nombre d'interfaces pour votre Switch ? (par défaut 10) ");
+		System.out.print("Nombre d'interfaces pour votre switch ? (par défaut 10) ");
 		String interfaces = scan.nextLine();
 		String s = interfaces.isEmpty() ? "0" : interfaces;
 		web.addSwitch(name, Integer.parseInt(s));
+	}
+	
+	private void addRouter() {
+		System.out.print("Quel est le nom de votre routeur ? ");
+		scan = new Scanner(System.in);
+		String name = scan.nextLine();
+		System.out.print("Nombre d'interfaces pour votre routeur ? (par défaut 2) ");
+		String interfaces = scan.nextLine();
+		String s = interfaces.isEmpty() ? "0" : interfaces;
+		web.addRouter(name, Integer.parseInt(s));
+	}
+	
+	private void connectDevice() {
+		System.out.print("Quelle interface (1) voulez-vous brancher ? ");
+		scan = new Scanner(System.in);
+		System.out.print("A quelle autre interface (2) voulez-vous brancher ? ");
 	}
 	
 	private void showNetworks() {
