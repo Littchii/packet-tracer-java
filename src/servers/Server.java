@@ -14,7 +14,8 @@ public class Server extends Device {
 	public String getType () {
         return type;
     }
-	
+
+	@Override
 	public String toString() {
 		return type + " \"" + name + "\" avec " + getInterface() +" interfaces";
 	}

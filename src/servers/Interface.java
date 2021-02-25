@@ -12,6 +12,7 @@ public class Interface {
 		return number;
 	}
 	
+	@Override
 	public String toString() {
 		return "Fa0/" + number;
 	}

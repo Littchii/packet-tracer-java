@@ -58,9 +58,9 @@ public class Web {
 			Computer laptop = new Computer(ip, name);
 			if(! clients.contains(laptop)) {
 				clients.add(laptop);
-				System.out.println("\n## L'ordinateur " + name + " avec l'ip " + ip + " a bien été crée ! ##\n");
+				displayClientSuccess(laptop);
 			} else {
-				System.out.println("L'ordinateur " + name + " avec l'ip " + ip + " existe déjà !");
+				displayClientError(laptop);
 			}
 		} else {
 			System.out.println("Veuillez renseigner les deux paramètres demandés !");
@@ -95,7 +95,15 @@ public class Web {
 	}
 	
 	private void displayServerError(Server s) {
-		System.out.println("\n## Le "+ s.getType() + " " + s.getName() + " existe déjà ! ##");
+		System.out.println("\n"+ s.getType() + " " + s.getName() + " existe déjà !\n");
+	}
+	
+	private void displayClientSuccess(Client c) {
+		System.out.println("\n## " + c.getType() + " " + c.getName() + " avec l'ip " + c.getIp() + " a bien été crée ! ##\n");
+	}
+	
+	private void displayClientError(Client c) {
+		System.out.println("\n" + c.getType() + " " + c.getName() + " avec l'ip " + c.getIp() + " existe déjà !\n");
 	}
 	
 }

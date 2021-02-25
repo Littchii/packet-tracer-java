@@ -33,6 +33,7 @@ public class Cable {
         return device2;
 	}
 
+	@Override
 	public String  toString() {
 		return "Le cable connecte le port " + port1 + " (" + device1.getName() + ")" + " et " + port2 + " (" + device2.getName() + ")";
 	}
