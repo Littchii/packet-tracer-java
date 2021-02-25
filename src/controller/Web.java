@@ -5,6 +5,7 @@ import java.util.List;
 
 import cables.Cable;
 import clients.Client;
+import clients.Computer;
 import project.Device;
 import project.Network;
 import servers.Interface;
@@ -52,14 +53,14 @@ public class Web {
 		}
 	}
 	
-	public void addLaptop(String name, String ip) {
-		if(! (ip.isEmpty() || name.isEmpty())) {
-			Client laptop = new Client(name, ip);
+	public void addLaptop(String ip, String name) {
+		if(! (name.isEmpty() || ip.isEmpty())) {
+			Computer laptop = new Computer(ip, name);
 			if(! clients.contains(laptop)) {
 				clients.add(laptop);
 				System.out.println("\n## L'ordinateur " + name + " avec l'ip " + ip + " a bien été crée ! ##\n");
 			} else {
-				System.out.println("L'ordinateur " + name+ "/" + ip + " existe déjà !");
+				System.out.println("L'ordinateur " + name + " avec l'ip " + ip + " existe déjà !");
 			}
 		} else {
 			System.out.println("Veuillez renseigner les deux paramètres demandés !");

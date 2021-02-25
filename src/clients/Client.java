@@ -23,7 +23,7 @@ public class Client extends Device {
     public boolean equals(Object o) {
     	if(o instanceof Client) {
     		Client other = (Client) o;
-    		return super.equals(other) && ip.equals(other.ip);
+    		return super.equals(other) || ip.equals(other.ip);
     	}
     	return false;
     }

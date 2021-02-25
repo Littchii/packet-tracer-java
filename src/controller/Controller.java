@@ -104,7 +104,7 @@ public class Controller {
 		ip = scan.nextLine();
 		System.out.print("Quel est nom de votre laptop ? ");
 		String name = scan.nextLine();
-		web.addLaptop(name, ip);
+		web.addLaptop(ip, name);
 	}
 	
 	private void addSwitch() {
