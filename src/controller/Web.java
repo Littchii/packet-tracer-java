@@ -55,13 +55,7 @@ public class Web {
 	
 	public void addLaptop(String ip, String name) {
 		if(! (name.isEmpty() || ip.isEmpty())) {
-			Computer laptop = new Computer(ip, name);
-			if(! clients.contains(laptop)) {
-				clients.add(laptop);
-				displayClientSuccess(laptop);
-			} else {
-				displayClientError(laptop);
-			}
+			addClient(new Computer(ip, name));
 		} else {
 			System.out.println("Veuillez renseigner les deux paramètres demandés !");
 		}
@@ -87,6 +81,15 @@ public class Web {
 			displayServerSuccess(tmp);
 		} else {
 			displayServerError(tmp);
+		}
+	}
+	
+	private void addClient(Client tmp) {
+		if(! clients.contains(tmp)) {
+			clients.add(tmp);
+			displayClientSuccess(tmp);
+		} else {
+			displayClientError(tmp);
 		}
 	}
 	
