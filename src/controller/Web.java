@@ -7,6 +7,7 @@ import clients.Client;
 import clients.Computer;
 import project.Device;
 import project.Network;
+import servers.Interface;
 import servers.Router;
 import servers.Server;
 import servers.Switch;
@@ -45,6 +46,10 @@ public class Web {
 		return tmp;
 	}
 	
+	public List<Device> getDevice() {
+		return devices;
+	}
+	
 	public void addNetwork(String ip, String mask) {	
 		Network tmp;
 		if(mask.isEmpty()) {
@@ -61,9 +66,9 @@ public class Web {
 		}
 	}
 	
-	public void addLaptop(String ip, String name) {
+	public void addLaptop(String name, String ip) {
 		if(! (name.isEmpty() || ip.isEmpty())) {
-			addClient(new Computer(ip, name));
+			addClient(new Computer(name, ip));
 		} else {
 			System.out.println("Veuillez renseigner les deux paramètres demandés !");
 		}
@@ -77,8 +82,10 @@ public class Web {
 		addServer(interfaces == 0 ? new Router(name) : new Router(name, interfaces));
 	}
 	
-	public void connectDevice(Device source, Device dest, int i) {
-		
+	public void connectDevice(Device d1, Device d2, int nb, Interface i1) {
+		i1.connect(d1, d2, nb);
+		System.out.println(i1);
+		System.out.println(d2.getInterfaceByIndex(nb));
 	}
 	
 	private void addServer(Server tmp) {

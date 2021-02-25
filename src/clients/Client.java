@@ -29,5 +29,10 @@ public class Client extends Device {
     	}
     	return false;
     }
+    
+	@Override
+	public String toString() {
+		return type + " \"" + name + "\" avec " + getNumberOfInterface() +" interfaces";
+	}
 	
 }

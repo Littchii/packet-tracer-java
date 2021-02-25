@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import clients.Client;
+import project.Device;
 import project.Network;
+import servers.Interface;
 import servers.Server;
 
 public class Controller {
@@ -99,12 +101,12 @@ public class Controller {
 	}
 	
 	private void addLaptop() {
-		System.out.print("Quel est l'IP de votre laptop ? ");
+		System.out.print("Quel est le nom de votre laptop ? ");
 		scan = new Scanner(System.in);
-		ip = scan.nextLine();
-		System.out.print("Quel est nom de votre laptop ? ");
 		String name = scan.nextLine();
-		web.addLaptop(ip, name);
+		System.out.print("Quel est l'IP de votre laptop ? ");
+		ip = scan.nextLine();
+		web.addLaptop(name, ip);
 	}
 	
 	private void addSwitch() {
@@ -128,9 +130,37 @@ public class Controller {
 	}
 	
 	private void connectDevice() {
-		System.out.print("Quelle interface (1) voulez-vous brancher ? ");
 		scan = new Scanner(System.in);
-		System.out.print("A quelle autre interface (2) voulez-vous brancher ? ");
+		if(! web.getDevice().isEmpty() && web.getDevice().size() > 1) {
+			System.out.println("\nQuel device voulez-vous connecter ?");
+			for(int i = 0; i < web.getDevice().size(); i++) {
+				System.out.println(i + " - " + web.getDevice().get(i));
+			}
+			int nb = scan.nextInt();
+			Device d1 = web.getDevice().get(nb);
+			System.out.println("\nQuelle interface voulez-vous connecter ?");
+			for(int i = 0; i < d1.interfaces.size(); i++) {
+				System.out.println(i + " - " + d1.interfaces.get(i));
+			}
+			nb = scan.nextInt();
+			Interface i1 = d1.getInterfaceByIndex(nb);
+			System.out.println("\nSur quel autre device voulez-vous vous connecter ? ");
+			for(int i = 0; i < web.getDevice().size(); i++) {
+				if(! web.getDevice().get(i).equals(d1)) {					
+					System.out.println(i + " - " + web.getDevice().get(i));
+				}
+			}
+			nb = scan.nextInt();
+			Device d2 = web.getDevice().get(nb);
+			System.out.println("\nSur quelle interface du deuxième device voulez-vous vous connecter ? ");
+			for(int i = 0; i < d2.interfaces.size(); i++) {
+				System.out.println(i + " - " + d2.interfaces.get(i));
+			}
+			nb = scan.nextInt();
+			web.connectDevice(d1, d2, nb, i1);
+		} else {
+			System.out.println("Il n'y a aucun device crée ou il n'y a qu'un seul device !");
+		}
 	}
 	
 	private void showNetworks() {

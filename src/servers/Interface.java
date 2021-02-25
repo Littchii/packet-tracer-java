@@ -17,10 +17,10 @@ public class Interface {
 	public void connect(Device source, Device dest, int id) {
 		linkedInterface = dest.getInterfaceByIndex(id);
 		linkedDevice = dest;
-		linkedInterface.connect(dest, source);
+		connect(source);
 	}
 	
-	private void connect(Device dest, Device source) {
+	private void connect(Device source) {
 		linkedInterface.linkedInterface = this;
 		linkedInterface.linkedDevice = source;
 	}

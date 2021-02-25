@@ -14,11 +14,6 @@ public class Server extends Device {
 	public String getType () {
         return type;
     }
-
-	@Override
-	public String toString() {
-		return type + " \"" + name + "\" avec " + getNumberOfInterface() +" interfaces";
-	}
 	
     @Override
     public boolean equals(Object o) {
@@ -28,5 +23,10 @@ public class Server extends Device {
     	}
     	return false;
     }
+    
+	@Override
+	public String toString() {
+		return type + " \"" + name + "\" avec " + getNumberOfInterface() +" interfaces";
+	}
 
 }

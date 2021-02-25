@@ -7,7 +7,7 @@ import servers.Interface;
 public class Device {
 	
 	protected String name;
-	protected ArrayList<Interface> interfaces;
+	public ArrayList<Interface> interfaces;
 	
 	public Device(String n, int inter) {
 		name = n;
