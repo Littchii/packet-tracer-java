@@ -1,20 +1,52 @@
 package servers;
 
+import project.Device;
+
 public class Interface {
 	
-	private int number;
+	private int id;
+	private Interface linkedInterface;
+	private Device linkedDevice;
 	
 	public Interface(int n) {
-		number = n;
+		id = n;
+		linkedInterface = null;
+		linkedDevice = null;
 	}
 	
-	public int getNumber() {
-		return number;
+	public void connect(Device source, Device dest, int id) {
+		linkedInterface = dest.getInterfaceByIndex(id);
+		linkedDevice = dest;
+		linkedInterface.connect(dest, source);
+	}
+	
+	private void connect(Device dest, Device source) {
+		linkedInterface.linkedInterface = this;
+		linkedInterface.linkedDevice = source;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public Interface getLinkedInterface() {
+		return linkedInterface;
+	}
+	
+	public Device getLinkedDevice() {
+		return linkedDevice;
+	}
+	
+	private String getStringOfInterface() {
+		return "Fa0/" + id;
 	}
 	
 	@Override
 	public String toString() {
-		return "Fa0/" + number;
+		if(linkedInterface != null && linkedDevice != null) {
+			return getStringOfInterface() + " est connectée à l'interface de " + linkedDevice.getName() + " -> " + linkedInterface.getStringOfInterface();
+		}
+		return getStringOfInterface();
 	}
 	
 }

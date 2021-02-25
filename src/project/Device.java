@@ -37,7 +37,7 @@ public class Device {
 		return interfaces.get(index);
 	}
 	
-	public int getInterface() {
+	public int getNumberOfInterface() {
 		return interfaces.size();
 	}
 	

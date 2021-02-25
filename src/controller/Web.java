@@ -3,12 +3,10 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import cables.Cable;
 import clients.Client;
 import clients.Computer;
 import project.Device;
 import project.Network;
-import servers.Interface;
 import servers.Router;
 import servers.Server;
 import servers.Switch;
@@ -16,13 +14,11 @@ import servers.Switch;
 public class Web {
 	
 	private List<Network> networks;
-	private List<Client> clients;
-	private List<Server> servers;
+	private List<Device> devices;
 	
 	public Web() {
 		networks = new ArrayList<>();
-		clients = new ArrayList<>();
-		servers = new ArrayList<>();
+		devices = new ArrayList<>();
 	}
 	
 	public List<Network> getNetworks() {
@@ -30,11 +26,23 @@ public class Web {
 	}
 	
 	public List<Client> getClients() {
-		return clients;
+		List<Client> tmp = new ArrayList<>();
+		for(Device element : devices) {
+			if(element instanceof Client) {				
+				tmp.add((Client) element);
+			}
+		}
+		return tmp;
 	}
 	
 	public List<Server> getServers() {
-		return servers;
+		List<Server> tmp = new ArrayList<>();
+		for(Device element : devices) {
+			if(element instanceof Server) {				
+				tmp.add((Server) element);
+			}
+		}
+		return tmp;
 	}
 	
 	public void addNetwork(String ip, String mask) {	
@@ -69,15 +77,13 @@ public class Web {
 		addServer(interfaces == 0 ? new Router(name) : new Router(name, interfaces));
 	}
 	
-	public void connectDevice(Interface i1, Interface i2, Device d1, Device d2) {
-		Cable cbl;
-		cbl = new Cable(i1, i2, d1, d2);
-		System.out.println(cbl);
+	public void connectDevice(Device source, Device dest, int i) {
+		
 	}
 	
 	private void addServer(Server tmp) {
-		if(! servers.contains(tmp)) {
-			servers.add(tmp);
+		if(! devices.contains(tmp)) {
+			devices.add(tmp);
 			displayServerSuccess(tmp);
 		} else {
 			displayServerError(tmp);
@@ -85,8 +91,8 @@ public class Web {
 	}
 	
 	private void addClient(Client tmp) {
-		if(! clients.contains(tmp)) {
-			clients.add(tmp);
+		if(! devices.contains(tmp)) {
+			devices.add(tmp);
 			displayClientSuccess(tmp);
 		} else {
 			displayClientError(tmp);
@@ -94,7 +100,7 @@ public class Web {
 	}
 	
 	private void displayServerSuccess(Server s) {
-		System.out.println("\n## Le " + s.getType() + " " + s.getName() + " avec " + s.getInterface() + " interfaces a été crée ##\n");
+		System.out.println("\n## Le " + s.getType() + " " + s.getName() + " avec " + s.getNumberOfInterface() + " interfaces a été crée ##\n");
 	}
 	
 	private void displayServerError(Server s) {
