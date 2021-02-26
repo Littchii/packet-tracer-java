@@ -45,13 +45,6 @@ public class Interface {
 		return "Fa0/" + id;
 	}
 	
-	public String getUsed() {
-		if(used) {
-			return "Cette interface est déjà utilisée.";
-		}
-		return "Cette interface n'est pas utilisée.";
-	}
-	
 	@Override
 	public String toString() {
 		if(linkedInterface != null && linkedDevice != null) {
