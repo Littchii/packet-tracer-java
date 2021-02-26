@@ -133,23 +133,27 @@ public class Controller {
 		scan = new Scanner(System.in);
 		if(! web.getDevice().isEmpty() && web.getDevice().size() > 1) {
 			System.out.println("\nQuel device voulez-vous connecter ?");
-			boucleOnDevice(web.getDevice());
+			
+			boucleOnDevice(web.getDevice(), null);
+			
 			int nb = scan.nextInt();
 			Device d1 = web.getDevice().get(nb);
 			System.out.println("\nQuelle interface voulez-vous connecter ?");
+			
 			boucleOnInterface(d1);
+			
 			nb = scan.nextInt();
 			Interface i1 = d1.getInterfaceByIndex(nb);
 			System.out.println("\nSur quel autre device voulez-vous vous connecter ? ");
-			for(int i = 0; i < web.getDevice().size(); i++) {
-				if(! web.getDevice().get(i).equals(d1)) {					
-					System.out.println(i + " - " + web.getDevice().get(i));
-				}
-			}
+			
+			boucleOnDevice(web.getDevice(), d1);
+			
 			nb = scan.nextInt();
 			Device d2 = web.getDevice().get(nb);
 			System.out.println("\nSur quelle interface du deuxième device voulez-vous vous connecter ? ");
+			
 			boucleOnInterface(d2);
+			
 			nb = scan.nextInt();
 			web.connectDevice(d1, d2, nb, i1);
 		} else {
@@ -157,17 +161,21 @@ public class Controller {
 		}
 	}
 	
-	private void boucleOnDevice(List<Device> list) {
+	private void boucleOnDevice(List<Device> list, Device exclude) {
 		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getNumberOfNotConnectedInterface() > 0) {					
-				System.out.println(i + " - " + list.get(i));
+			if(list.get(i).getNumberOfNotConnectedInterface() > 0) {	
+				if(exclude != null && ! list.get(i).equals(exclude)) {		
+					System.out.println(i + " - " + list.get(i));
+				} else if(exclude == null) {
+					System.out.println(i + " - " + list.get(i));
+				}
 			}
 		}
 	}
 	
 	private void boucleOnInterface(Device d) {
 		for(int i = 0; i < d.interfaces.size(); i++) {
-			if(! d.getInterfaceByIndex(i).used) {					
+			if(! d.getInterfaceByIndex(i).isUsed()) {					
 				System.out.println(i + " - " + d.interfaces.get(i));
 			}
 		}

@@ -4,16 +4,9 @@ import project.Device;
 
 public class Server extends Device {
 	
-	protected String type;
-	
 	public Server(String name, int nb, String t) {
-		super(name, nb);
-		type = t;
+		super(name, nb, t);
 	}
-	
-	public String getType () {
-        return type;
-    }
 	
     @Override
     public boolean equals(Object o) {
@@ -23,10 +16,5 @@ public class Server extends Device {
     	}
     	return false;
     }
-    
-	@Override
-	public String toString() {
-		return type + " \"" + name + "\" avec " + getNumberOfInterface() +" interfaces";
-	}
 
 }

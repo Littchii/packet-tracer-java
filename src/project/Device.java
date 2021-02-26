@@ -7,11 +7,13 @@ import servers.Interface;
 public class Device {
 	
 	protected String name;
+	protected String type;
 	public ArrayList<Interface> interfaces;
 	
-	public Device(String n, int inter) {
+	public Device(String n, int inter, String t) {
 		name = n;
 		interfaces = new ArrayList<>();
+		type = t;
 		init(inter);
 	}
 	
@@ -24,6 +26,10 @@ public class Device {
 	public String getName() {
 		return name;
 	}
+	
+	public String getType () {
+        return type;
+    }
 	
 	public String inter() {
 		String str = "";
@@ -40,7 +46,17 @@ public class Device {
 	public int getNumberOfNotConnectedInterface() {
 		int count = 0;
 		for(int i = 0; i < interfaces.size(); i++) {			
-			if(! getInterfaceByIndex(i).used) {
+			if(! getInterfaceByIndex(i).isUsed()) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	public int getNumberOfInterfaceAvailable() {
+		int count = 0;
+		for(int i = 0; i < interfaces.size(); i++) {			
+			if(! interfaces.get(i).isUsed()) {
 				count++;
 			}
 		}
@@ -60,9 +76,9 @@ public class Device {
     	return false;
     }
 	
-    @Override
+	@Override
 	public String toString() {
-		return name;
+		return type + " - \"" + name + "\" avec " + interfaces.size() +" interfaces et " + getNumberOfInterfaceAvailable() + " interface(s) disponible(s).";
 	}
 	
 }

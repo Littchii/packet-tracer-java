@@ -5,20 +5,14 @@ import project.Device;
 public class Client extends Device {
 	
 	private String ip;
-	protected String type;
 	
 	public Client(String name, String ip, String t) {
-		super(name, 2);
+		super(name, 2, t);
 		this.ip = ip;
-		type = t;
 	}
 	
 	public String getIp() {
         return ip;
-    }
-
-	public String getType () {
-        return type;
     }
 	
     @Override
@@ -29,10 +23,5 @@ public class Client extends Device {
     	}
     	return false;
     }
-    
-	@Override
-	public String toString() {
-		return type + " \"" + name + "\" avec " + getNumberOfInterface() +" interfaces";
-	}
 	
 }
