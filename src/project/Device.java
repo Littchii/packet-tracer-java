@@ -37,6 +37,16 @@ public class Device {
 		return interfaces.get(index);
 	}
 	
+	public int getNumberOfNotConnectedInterface() {
+		int count = 0;
+		for(int i = 0; i < interfaces.size(); i++) {			
+			if(! getInterfaceByIndex(i).used) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
 	public int getNumberOfInterface() {
 		return interfaces.size();
 	}

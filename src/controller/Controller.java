@@ -134,7 +134,9 @@ public class Controller {
 		if(! web.getDevice().isEmpty() && web.getDevice().size() > 1) {
 			System.out.println("\nQuel device voulez-vous connecter ?");
 			for(int i = 0; i < web.getDevice().size(); i++) {
-				System.out.println(i + " - " + web.getDevice().get(i));
+				if(web.getDevice().get(i).getNumberOfNotConnectedInterface() != 0) {					
+					System.out.println(i + " - " + web.getDevice().get(i));
+				}
 			}
 			int nb = scan.nextInt();
 			Device d1 = web.getDevice().get(nb);

@@ -55,7 +55,7 @@ public class Interface {
 	@Override
 	public String toString() {
 		if(linkedInterface != null && linkedDevice != null) {
-			return getStringOfInterface() + " est connectée à l'interface de " + linkedDevice.getName() + " -> " + linkedInterface.getStringOfInterface();
+			return linkedInterface.linkedDevice.getName() + " -> " + getStringOfInterface() + " est connectée à l'interface de " + linkedDevice.getName() + " -> " + linkedInterface.getStringOfInterface();
 		}
 		return getStringOfInterface();
 	}
