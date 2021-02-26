@@ -7,11 +7,13 @@ public class Interface {
 	private int id;
 	private Interface linkedInterface;
 	private Device linkedDevice;
+	public boolean used;
 	
 	public Interface(int n) {
 		id = n;
 		linkedInterface = null;
 		linkedDevice = null;
+		used = false;
 	}
 	
 	public void connect(Device source, Device dest, int id) {
@@ -23,6 +25,8 @@ public class Interface {
 	private void connect(Device source) {
 		linkedInterface.linkedInterface = this;
 		linkedInterface.linkedDevice = source;
+		used = true;
+		linkedInterface.used = true;
 	}
 	
 	public int getId() {
@@ -39,6 +43,13 @@ public class Interface {
 	
 	private String getStringOfInterface() {
 		return "Fa0/" + id;
+	}
+	
+	public String getUsed() {
+		if(used) {
+			return "Cette interface est déjà utilisée.";
+		}
+		return "Cette interface n'est pas utilisée.";
 	}
 	
 	@Override

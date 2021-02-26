@@ -140,7 +140,9 @@ public class Controller {
 			Device d1 = web.getDevice().get(nb);
 			System.out.println("\nQuelle interface voulez-vous connecter ?");
 			for(int i = 0; i < d1.interfaces.size(); i++) {
-				System.out.println(i + " - " + d1.interfaces.get(i));
+				if(! d1.getInterfaceByIndex(i).used) {					
+					System.out.println(i + " - " + d1.interfaces.get(i));
+				}
 			}
 			nb = scan.nextInt();
 			Interface i1 = d1.getInterfaceByIndex(nb);
@@ -154,7 +156,9 @@ public class Controller {
 			Device d2 = web.getDevice().get(nb);
 			System.out.println("\nSur quelle interface du deuxième device voulez-vous vous connecter ? ");
 			for(int i = 0; i < d2.interfaces.size(); i++) {
-				System.out.println(i + " - " + d2.interfaces.get(i));
+				if(! d2.getInterfaceByIndex(i).used) {					
+					System.out.println(i + " - " + d2.interfaces.get(i));
+				}
 			}
 			nb = scan.nextInt();
 			web.connectDevice(d1, d2, nb, i1);
