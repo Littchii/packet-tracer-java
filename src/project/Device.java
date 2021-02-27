@@ -6,8 +6,8 @@ import servers.Interface;
 
 public class Device {
 	
-	protected String name;
-	protected String type;
+	private String name;
+	private String type;
 	public ArrayList<Interface> interfaces;
 	
 	public Device(String n, int inter, String t) {
@@ -71,14 +71,14 @@ public class Device {
     public boolean equals(Object o) {
     	if(o instanceof Device) {
     		Device other = (Device) o;
-    		return name.equals(other.name);
+    		return name.equals(other.name) && type.equals(other.type);
     	}
     	return false;
     }
 	
 	@Override
 	public String toString() {
-		return type + " - \"" + name + "\" avec " + interfaces.size() +" interfaces et " + getNumberOfInterfaceAvailable() + " interface(s) disponible(s).";
+		return type + " - \"" + name + "\" avec " + interfaces.size() +" interfaces et " + getNumberOfInterfaceAvailable() + " interface(s) disponible(s)";
 	}
 	
 }
