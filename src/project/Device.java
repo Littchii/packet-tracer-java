@@ -78,7 +78,7 @@ public class Device {
 	
 	@Override
 	public String toString() {
-		return type + " - \"" + name + "\" avec " + interfaces.size() +" interfaces et " + getNumberOfInterfaceAvailable() + " interface(s) disponible(s)";
+		return type + " - \"" + name + "\" avec " + interfaces.size() +" interfaces dont " + getNumberOfInterfaceAvailable() + " interface(s) disponible(s)";
 	}
 	
 }

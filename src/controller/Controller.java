@@ -29,6 +29,8 @@ public class Controller {
 		System.out.println("3. Créer un nouveau switch");
 		System.out.println("4. Créer un nouveau routeur");
 		System.out.println("5. Connecter 2 appareils par un câble");
+		System.out.println("6. Ajouter un device dans un réseau");
+		System.out.println("7. Voir tous les devices d'un réseau");
 		System.out.println("-----------------------------");
 		System.out.println("10. Voir la liste des réseaux");
 		System.out.println("11. Voir la liste des clients");
@@ -52,6 +54,12 @@ public class Controller {
 					break;
 				case 5:
 					connectDevice();
+					break;
+				case 6:
+					addDeviceInNetwork();
+					break;
+				case 7:
+					showAllDevicesInNetwork();
 					break;
 				case 10:
 					showNetworks();
@@ -161,6 +169,37 @@ public class Controller {
 		}
 	}
 	
+	private void addDeviceInNetwork() {
+		if(web.getNetworks().size() > 0 && web.getDevice().size() > 0) {			
+			scan = new Scanner(System.in);
+			System.out.println("Dans quel réseau voulez-vous ajouter votre device ?");
+			boucleOnNetwork();
+			int nb = scan.nextInt();
+			Network n = web.getNetworks().get(nb);
+			
+			System.out.println("Quel device voulez-vous ajouter dans ce réseau ?");
+			for(int i = 0; i < web.getDevice().size(); i++) {
+				System.out.println(i + " - " + web.getDevice().get(i));
+			}
+			nb = scan.nextInt();
+			Device d = web.getDevice().get(nb);
+			
+			web.addDeviceInNetwork(n, d);
+		} else {
+			System.out.println("Il n'y a aucun réseau ou device !");
+		}
+	}
+	
+	public void showAllDevicesInNetwork() {
+		scan = new Scanner(System.in);
+		System.out.println("Quel network voulez-vous ?");
+		boucleOnNetwork();
+		int nb = scan.nextInt();
+		Network n = web.getNetworks().get(nb);
+		
+		web.showAllDevicesInNetwork(n);
+	}
+	
 	private void boucleOnDevice(List<Device> list, Device exclude) {
 		for(int i = 0; i < list.size(); i++) {
 			if(list.get(i).getNumberOfNotConnectedInterface() > 0) {	
@@ -170,6 +209,12 @@ public class Controller {
 					System.out.println(i + " - " + list.get(i));
 				}
 			}
+		}
+	}
+	
+	public void boucleOnNetwork() {
+		for(int i = 0; i < web.getNetworks().size(); i++) {
+			System.out.println(i + " - " + web.getNetworks().get(i));
 		}
 	}
 	

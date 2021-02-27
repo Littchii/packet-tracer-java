@@ -88,6 +88,19 @@ public class Web {
 		System.out.println(d2.getInterfaceByIndex(nb));
 	}
 	
+	public void addDeviceInNetwork(Network n, Device d) {
+		n.addHost(d);
+		System.out.println("## Le device " + d.getName() + " a été ajouté au réseau " + n.getIp() + "/" + n.getMasque() + " ! ##");
+	}
+	
+	public void showAllDevicesInNetwork(Network n) {
+		if(! n.getDevices().isEmpty()) {			
+			System.out.println(n.getDevices()); 
+		} else {
+			System.out.println("Il n'y a pas de device dans ce réseau !");
+		}
+	}
+	
 	private void addServer(Server tmp) {
 		if(! devices.contains(tmp)) {
 			devices.add(tmp);
