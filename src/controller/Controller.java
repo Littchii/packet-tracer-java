@@ -219,9 +219,9 @@ public class Controller {
 	}
 	
 	private void boucleOnInterface(Device d) {
-		for(int i = 0; i < d.interfaces.size(); i++) {
+		for(int i = 0; i < d.getInterfaces().size(); i++) {
 			if(! d.getInterfaceByIndex(i).isUsed()) {					
-				System.out.println(i + " - " + d.interfaces.get(i));
+				System.out.println(i + " - " + d.getInterfaces().get(i));
 			}
 		}
 	}

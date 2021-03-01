@@ -1,6 +1,7 @@
 package project;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import servers.Interface;
 
@@ -8,7 +9,7 @@ public class Device {
 	
 	private String name;
 	private String type;
-	public ArrayList<Interface> interfaces;
+	private List<Interface> interfaces;
 	
 	public Device(String n, int inter, String t) {
 		name = n;
@@ -30,6 +31,10 @@ public class Device {
 	public String getType () {
         return type;
     }
+	
+	public List<Interface> getInterfaces() {
+		return interfaces;
+	}
 	
 	public String inter() {
 		String str = "";
