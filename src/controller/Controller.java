@@ -25,12 +25,13 @@ public class Controller {
 						 + "########################################################");
 		System.out.println("\nQue voulez-vous faire ?\n");
 		System.out.println("1. Créer un nouveau réseau");
-		System.out.println("2. Créer un nouvel ordi portable");
-		System.out.println("3. Créer un nouveau switch");
-		System.out.println("4. Créer un nouveau routeur");
-		System.out.println("5. Connecter 2 appareils par un câble");
-		System.out.println("6. Ajouter un device dans un réseau");
-		System.out.println("7. Voir tous les devices d'un réseau");
+		System.out.println("2. Créer un nouvel ordinateur");
+		System.out.println("3. Créer un nouvel ordinateur portable");
+		System.out.println("4. Créer un nouveau switch");
+		System.out.println("5. Créer un nouveau routeur");
+		System.out.println("6. Connecter 2 appareils par un câble");
+		System.out.println("7. Ajouter un device dans un réseau");
+		System.out.println("8. Voir tous les devices d'un réseau");
 		System.out.println("-----------------------------");
 		System.out.println("10. Voir la liste des réseaux");
 		System.out.println("11. Voir la liste des clients");
@@ -44,21 +45,24 @@ public class Controller {
 					addNetwork();
 					break;
 				case 2:
-					addLaptop();
+					addComputer("Computer");
 					break;
 				case 3:
-					addSwitch();
+					addComputer("Laptop");
 					break;
 				case 4:
-					addRouter();
+					addSwitch();
 					break;
 				case 5:
-					connectDevice();
+					addRouter();
 					break;
 				case 6:
-					addDeviceInNetwork();
+					connectDevice();
 					break;
 				case 7:
+					addDeviceInNetwork();
+					break;
+				case 8:
 					showAllDevicesInNetwork();
 					break;
 				case 10:
@@ -108,13 +112,13 @@ public class Controller {
 		web.addNetwork(ip, mask);
 	}
 	
-	private void addLaptop() {
-		System.out.print("Quel est le nom de votre laptop ? ");
+	private void addComputer(String type) {
+		System.out.print("Quel est le nom de votre " + type + " ? ");
 		scan = new Scanner(System.in);
 		String name = scan.nextLine();
-		System.out.print("Quel est l'IP de votre laptop ? ");
+		System.out.print("Quel est l'IP de votre laptop " + type + " ? ");
 		ip = scan.nextLine();
-		web.addLaptop(name, ip);
+		web.addComputer(name, ip, type);
 	}
 	
 	private void addSwitch() {

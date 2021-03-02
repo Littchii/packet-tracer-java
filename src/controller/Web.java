@@ -5,6 +5,7 @@ import java.util.List;
 
 import clients.Client;
 import clients.Computer;
+import clients.Laptop;
 import project.Device;
 import project.Network;
 import servers.Interface;
@@ -66,9 +67,9 @@ public class Web {
 		}
 	}
 	
-	public void addLaptop(String name, String ip) {
+	public void addComputer(String name, String ip, String type) {
 		if(! (name.isEmpty() || ip.isEmpty())) {
-			addClient(new Computer(name, ip));
+			addClient(type == "Computer" ? new Computer(name, ip) : new Laptop(name, ip));
 		} else {
 			System.out.println("Veuillez renseigner les deux paramètres demandés !");
 		}
