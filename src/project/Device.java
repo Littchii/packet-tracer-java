@@ -10,11 +10,13 @@ public class Device {
 	private String name;
 	private String type;
 	private List<Interface> interfaces;
+	private boolean inNetwork;
 	
 	public Device(String n, int inter, String t) {
 		name = n;
 		interfaces = new ArrayList<>();
 		type = t;
+		inNetwork = false;
 		init(inter);
 	}
 	
@@ -34,6 +36,14 @@ public class Device {
 	
 	public List<Interface> getInterfaces() {
 		return interfaces;
+	}
+	
+	public boolean getInNetwork() {
+		return inNetwork;
+	}
+	
+	public void setInNetwork(boolean bool) {
+		inNetwork = bool;
 	}
 	
 	public String inter() {

@@ -17,12 +17,10 @@ public class Web {
 	
 	private List<Network> networks;
 	private List<Device> devices;
-	private List<Device> devicesInNetwork;
 	
 	public Web() {
 		networks = new ArrayList<>();
 		devices = new ArrayList<>();
-		devicesInNetwork = new ArrayList<>();
 	}
 	
 	public List<Network> getNetworks() {
@@ -51,10 +49,6 @@ public class Web {
 	
 	public List<Device> getDevices() {
 		return devices;
-	}
-	
-	public List<Device> getDevicesInNetwork() {
-		return devicesInNetwork;
 	}
 	
 	public void addNetwork(String ip, String mask) {	
@@ -116,10 +110,10 @@ public class Web {
 	public void deviceInNetwork(String type, Network n, Device d) {
 		if(type == "add") {
 			n.addHost(d);
-			devicesInNetwork.add(d);
+			d.setInNetwork(true);
 		} else if(type == "remove") {
 			n.removeHost(d);
-			devicesInNetwork.remove(d);			
+			d.setInNetwork(false);		
 		}
 	}
 	
