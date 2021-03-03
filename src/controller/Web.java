@@ -17,10 +17,12 @@ public class Web {
 	
 	private List<Network> networks;
 	private List<Device> devices;
+	private List<Device> devicesInNetwork;
 	
 	public Web() {
 		networks = new ArrayList<>();
 		devices = new ArrayList<>();
+		devicesInNetwork = new ArrayList<>();
 	}
 	
 	public List<Network> getNetworks() {
@@ -47,8 +49,12 @@ public class Web {
 		return tmp;
 	}
 	
-	public List<Device> getDevice() {
+	public List<Device> getDevices() {
 		return devices;
+	}
+	
+	public List<Device> getDevicesInNetwork() {
+		return devicesInNetwork;
 	}
 	
 	public void addNetwork(String ip, String mask) {	
@@ -91,6 +97,7 @@ public class Web {
 	
 	public void addDeviceInNetwork(Network n, Device d) {
 		n.addHost(d);
+		devicesInNetwork.add(d);
 		System.out.println("## Le device " + d.getName() + " a été ajouté au réseau " + n.getIp() + "/" + n.getMasque() + " ! ##");
 	}
 	
@@ -100,6 +107,12 @@ public class Web {
 		} else {
 			System.out.println("Il n'y a pas de device dans ce réseau !");
 		}
+	}
+	
+	public void removeDeviceOfNetwork(Network n, Device d) {
+		n.removeHost(d);
+		devicesInNetwork.remove(d);
+		System.out.println("## Le device " + d.getName() + " a été supprimé du réseau " + n.getIp() + "/" + n.getMasque() + " ! ##");
 	}
 	
 	private void addServer(Server tmp) {
