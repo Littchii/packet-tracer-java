@@ -96,9 +96,8 @@ public class Web {
 	}
 	
 	public void addDeviceInNetwork(Network n, Device d) {
-		n.addHost(d);
-		devicesInNetwork.add(d);
-		System.out.println("## Le device " + d.getName() + " a été ajouté au réseau " + n.getIp() + "/" + n.getMasque() + " ! ##");
+		deviceInNetwork("add", n, d);
+		System.out.println("## Le device " + d.getName() + " a été ajouté au réseau " + n.getIp() + "/" + n.getMasque() + " ! ##\n");
 	}
 	
 	public void showAllDevicesInNetwork(Network n) {
@@ -109,10 +108,19 @@ public class Web {
 		}
 	}
 	
-	public void removeDeviceOfNetwork(Network n, Device d) {
-		n.removeHost(d);
-		devicesInNetwork.remove(d);
-		System.out.println("## Le device " + d.getName() + " a été supprimé du réseau " + n.getIp() + "/" + n.getMasque() + " ! ##");
+	public void removeDeviceInNetwork(Network n, Device d) {
+		deviceInNetwork("remove", n, d);
+		System.out.println("## Le device " + d.getName() + " a été supprimé du réseau " + n.getIp() + "/" + n.getMasque() + " ! ##\n");
+	}
+	
+	public void deviceInNetwork(String type, Network n, Device d) {
+		if(type == "add") {
+			n.addHost(d);
+			devicesInNetwork.add(d);
+		} else if(type == "remove") {
+			n.removeHost(d);
+			devicesInNetwork.remove(d);			
+		}
 	}
 	
 	private void addServer(Server tmp) {
