@@ -102,7 +102,7 @@ public class Web {
 	
 	public void showAllDevicesInNetwork(Network n) {
 		if(! n.getDevices().isEmpty()) {			
-			System.out.println(n.getDevices()); 
+			System.out.println(n.getDevices());
 		} else {
 			System.out.println("Il n'y a pas de device dans ce réseau !");
 		}

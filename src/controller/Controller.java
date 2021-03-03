@@ -209,7 +209,7 @@ public class Controller {
 	}
 	
 	public void removeDeviceInNetwork() {
-		if(web.getNetworks().size() > 0 && web.getDevices().size() > 0) {
+		if(web.getNetworks().size() > 0 && web.getDevicesInNetwork().size() > 0) {
 			scan= new Scanner(System.in);
 			
 			System.out.println("Quel device voulez-vous supprimer de son réseau ?");
@@ -217,7 +217,7 @@ public class Controller {
 				System.out.println(i + " - " + web.getDevicesInNetwork().get(i));
 			}
 			int nb = scan.nextInt();
-			Device d = web.getDevices().get(nb);
+			Device d = web.getDevicesInNetwork().get(nb);
 			Network n = web.getNetworks().get(nb);
 			
 			web.removeDeviceInNetwork(n, d);
