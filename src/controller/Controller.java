@@ -181,7 +181,7 @@ public class Controller {
 		if(web.getNetworks().size() > 0 && web.getDevices().size() > 0) {			
 			scan = new Scanner(System.in);
 			System.out.println("Dans quel réseau voulez-vous ajouter votre device ?");
-			boucleOnNetwork();
+			boucleOnNetwork(false);
 			int nb = scan.nextInt();
 			Network n = web.getNetworks().get(nb);
 			
@@ -201,7 +201,7 @@ public class Controller {
 	public void showAllDevicesInNetwork() {
 		scan = new Scanner(System.in);
 		System.out.println("Quel network voulez-vous ?");
-		boucleOnNetwork();
+		boucleOnNetwork(true);
 		int nb = scan.nextInt();
 		Network n = web.getNetworks().get(nb);
 		
@@ -210,15 +210,18 @@ public class Controller {
 	
 	public void removeDeviceInNetwork() {
 		if(web.getNetworks().size() > 0 && web.getDevicesInNetwork().size() > 0) {
-			scan= new Scanner(System.in);
-			
-			System.out.println("Quel device voulez-vous supprimer de son réseau ?");
-			for(int i = 0; i < web.getDevicesInNetwork().size(); i++) {
-				System.out.println(i + " - " + web.getDevicesInNetwork().get(i));
-			}
+			scan = new Scanner(System.in);
+			System.out.println("Dans quel réseau voulez-vous supprimer votre device ?");
+			boucleOnNetwork(true);
 			int nb = scan.nextInt();
-			Device d = web.getDevicesInNetwork().get(nb);
 			Network n = web.getNetworks().get(nb);
+			
+			System.out.println("Quel device voulez-vous ajouter dans ce réseau ?");
+			for(int i = 0; i < n.getDevices().size(); i++) {					
+				System.out.println(i + " - " + n.getDevices().get(i));
+			}
+			nb = scan.nextInt();
+			Device d = web.getDevicesInNetwork().get(nb);
 			
 			web.removeDeviceInNetwork(n, d);
 		} else {
@@ -238,9 +241,17 @@ public class Controller {
 		}
 	}
 	
-	public void boucleOnNetwork() {
-		for(int i = 0; i < web.getNetworks().size(); i++) {
-			System.out.println(i + " - " + web.getNetworks().get(i));
+	public void boucleOnNetwork(boolean type) {
+		if(type) {			
+			for(int i = 0; i < web.getNetworks().size(); i++) {
+				if(web.getNetworks().get(i).getDevices().size() > 0) {					
+					System.out.println(i + " - " + web.getNetworks().get(i));
+				}
+			}
+		} else {
+			for(int i = 0; i < web.getNetworks().size(); i++) {			
+				System.out.println(i + " - " + web.getNetworks().get(i));
+			}
 		}
 	}
 	
