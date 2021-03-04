@@ -127,8 +127,8 @@ public class Controller {
 	}
 	
 	/**
-	 * @param type
 	 * Méthode pour ajouter un nouveau computer ou laptop
+	 * @param type
 	 */
 	private void addComputer(String type) {
 		System.out.print("Quel est le nom de votre " + type + " ? ");
@@ -264,9 +264,9 @@ public class Controller {
 	}
 	
 	/**
+	 * Méthode pour afficher tous les devices et exclure 1 device précis
 	 * @param list
 	 * @param exclude
-	 * Méthode pour afficher tous les devices et exclure 1 device précis
 	 */
 	private void boucleOnDevice(List<Device> list, Device exclude) {
 		for(int i = 0; i < list.size(); i++) {
@@ -281,8 +281,8 @@ public class Controller {
 	}
 	
 	/**
-	 * @param type
 	 * Méthode pour afficher tous les networks OU tous les networks qui ont au moins 1 device connecté
+	 * @param type
 	 */
 	public void boucleOnNetwork(boolean type) {
 		if(type) {			
@@ -299,8 +299,8 @@ public class Controller {
 	}
 	
 	/**
-	 * @param d
 	 * Méthode pour afficher toutes les interfaces non connectées d'1 device
+	 * @param d
 	 */
 	private void boucleOnInterface(Device d) {
 		for(int i = 0; i < d.getInterfaces().size(); i++) {
