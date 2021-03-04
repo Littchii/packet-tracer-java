@@ -19,6 +19,9 @@ public class Controller {
 		web = new Web();
 	}
 	
+	/**
+	 * Méthode pour démarrer le programme
+	 */
 	public void start() {
 		System.out.println("########################################################\n"
 						 + "######## Bienvenue sur un Packet Tracer light ! ########\n"
@@ -86,6 +89,10 @@ public class Controller {
 		}
 	}
 	
+	
+	/**
+	 * Méthode appelée après que l'utilisateur a effectué une action de start()
+	 */
 	private void options() {
 		System.out.println("Voulez-vous continuer le programme ?\n");
 		System.out.println("1. Oui");
@@ -107,6 +114,9 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Méthode pour ajouter un nouveau network
+	 */
 	private void addNetwork() {
 		System.out.print("Quel est l'IP du réseau ? ");
 		scan = new Scanner(System.in);
@@ -116,6 +126,10 @@ public class Controller {
 		web.addNetwork(ip, mask);
 	}
 	
+	/**
+	 * @param type
+	 * Méthode pour ajouter un nouveau computer ou laptop
+	 */
 	private void addComputer(String type) {
 		System.out.print("Quel est le nom de votre " + type + " ? ");
 		scan = new Scanner(System.in);
@@ -125,6 +139,9 @@ public class Controller {
 		web.addComputer(name, ip, type);
 	}
 	
+	/**
+	 * Méthode pour ajouter un switch
+	 */
 	private void addSwitch() {
 		System.out.print("Quel est le nom de votre switch ? ");
 		scan = new Scanner(System.in);
@@ -135,6 +152,9 @@ public class Controller {
 		web.addSwitch(name, Integer.parseInt(s));
 	}
 	
+	/**
+	 * Méthode pour ajouter un routeur
+	 */
 	private void addRouter() {
 		System.out.print("Quel est le nom de votre routeur ? ");
 		scan = new Scanner(System.in);
@@ -145,6 +165,9 @@ public class Controller {
 		web.addRouter(name, Integer.parseInt(s));
 	}
 	
+	/**
+	 * Méthode pour connecter 2 devices ensemble avec leurs interfaces
+	 */
 	private void connectDevice() {
 		scan = new Scanner(System.in);
 		if(! web.getDevices().isEmpty() && web.getDevices().size() > 1) {
@@ -177,6 +200,9 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Méthode pour ajouter un device dans un network
+	 */
 	private void addDeviceInNetwork() {
 		if(web.getNetworks().size() > 0 && web.getDevices().size() > 0) {			
 			scan = new Scanner(System.in);
@@ -200,6 +226,9 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Méthode pour voir tous les devices connectés à un network
+	 */
 	public void showAllDevicesInNetwork() {
 		scan = new Scanner(System.in);
 		System.out.println("Quel network voulez-vous ?");
@@ -210,6 +239,9 @@ public class Controller {
 		web.showAllDevicesInNetwork(n);
 	}
 	
+	/**
+	 * Méthode pour supprimer un device de son réseau
+	 */
 	public void removeDeviceInNetwork() {
 		if(web.getNetworks().size() > 0 && web.getDevices().size() > 0) {
 			scan = new Scanner(System.in);
@@ -231,6 +263,11 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * @param list
+	 * @param exclude
+	 * Méthode pour afficher tous les devices et exclure 1 device précis
+	 */
 	private void boucleOnDevice(List<Device> list, Device exclude) {
 		for(int i = 0; i < list.size(); i++) {
 			if(list.get(i).getNumberOfNotConnectedInterface() > 0) {	
@@ -243,6 +280,10 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * @param type
+	 * Méthode pour afficher tous les networks OU tous les networks qui ont au moins 1 device connecté
+	 */
 	public void boucleOnNetwork(boolean type) {
 		if(type) {			
 			for(int i = 0; i < web.getNetworks().size(); i++) {
@@ -257,6 +298,10 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * @param d
+	 * Méthode pour afficher toutes les interfaces non connectées d'1 device
+	 */
 	private void boucleOnInterface(Device d) {
 		for(int i = 0; i < d.getInterfaces().size(); i++) {
 			if(! d.getInterfaceByIndex(i).isUsed()) {					
@@ -265,6 +310,9 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Méthode pour afficher tous les networks
+	 */
 	private void showNetworks() {
 		List<Network> networks = web.getNetworks();
 		if(networks.isEmpty()) {
@@ -274,6 +322,9 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Méthode pour afficher tous les clients
+	 */
 	private void showClients() {
 		List<Client> clients = web.getClients();
 		if(clients.isEmpty()) {
@@ -283,6 +334,9 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Méthode pour afficher tous les serveurs
+	 */
 	private void showServers() {
 		List<Server> servers = web.getServers();
 		if(servers.isEmpty()) {
