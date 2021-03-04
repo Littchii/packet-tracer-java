@@ -187,8 +187,10 @@ public class Controller {
 			
 			System.out.println("Quel device voulez-vous ajouter dans ce réseau ?");
 			for(int i = 0; i < web.getDevices().size(); i++) {	
-				if(! web.getDevices().get(i).getInNetwork()) {					
-					System.out.println(i + " - " + web.getDevices().get(i));
+				if(! web.getDevices().get(i).getInNetwork()) {		
+					if(! web.getDevices().get(i).getInNetwork()) {						
+						System.out.println(i + " - " + web.getDevices().get(i));
+					}
 				}
 			}
 			nb = scan.nextInt();
@@ -214,7 +216,7 @@ public class Controller {
 		if(web.getNetworks().size() > 0 && web.getDevices().size() > 0) {
 			scan = new Scanner(System.in);
 			System.out.println("Dans quel réseau voulez-vous supprimer votre device ?");
-			boucleOnNetwork(false);
+			boucleOnNetwork(true);
 			int nb = scan.nextInt();
 			Network n = web.getNetworks().get(nb);
 			
