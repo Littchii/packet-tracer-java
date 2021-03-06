@@ -23,10 +23,18 @@ public class Web {
 		devices = new ArrayList<>();
 	}
 	
+	/**
+	 * Méthode pour retourner la liste de tous les networks
+	 * @return
+	 */
 	public List<Network> getNetworks() {
 		return networks;
 	}
 	
+	/**
+	 * Méthode pour retourner tous les clients
+	 * @return
+	 */
 	public List<Client> getClients() {
 		List<Client> tmp = new ArrayList<>();
 		for(Device element : devices) {
@@ -37,6 +45,10 @@ public class Web {
 		return tmp;
 	}
 	
+	/**
+	 * Méthode pour retourner tous les serveurs
+	 * @return
+	 */
 	public List<Server> getServers() {
 		List<Server> tmp = new ArrayList<>();
 		for(Device element : devices) {
@@ -47,10 +59,19 @@ public class Web {
 		return tmp;
 	}
 	
+	/**
+	 * Méthode pour retourner tous les devices
+	 * @return
+	 */
 	public List<Device> getDevices() {
 		return devices;
 	}
 	
+	/**
+	 * Méthode pour ajouter un réseau
+	 * @param ip
+	 * @param mask
+	 */
 	public void addNetwork(String ip, String mask) {	
 		Network tmp;
 		if(mask.isEmpty()) {
@@ -67,6 +88,12 @@ public class Web {
 		}
 	}
 	
+	/**
+	 * Méthode pour ajouter un ordinateur ou un laptop
+	 * @param name
+	 * @param ip
+	 * @param type
+	 */
 	public void addComputer(String name, String ip, String type) {
 		if(! (name.isEmpty() || ip.isEmpty())) {
 			addClient(type == "Computer" ? new Computer(name, ip) : new Laptop(name, ip));
@@ -75,25 +102,51 @@ public class Web {
 		}
 	}
 	
+	/**
+	 * Méthode pour ajouter un switch
+	 * @param name
+	 * @param interfaces
+	 */
 	public void addSwitch(String name, int interfaces) {
 		addServer(interfaces == 0 ? new Switch(name) : new Switch(name, interfaces));
 	}
 	
+	/**
+	 * Méthode pour ajouter un routeur
+	 * @param name
+	 * @param interfaces
+	 */
 	public void addRouter(String name, int interfaces) {
 		addServer(interfaces == 0 ? new Router(name) : new Router(name, interfaces));
 	}
 	
+	/**
+	 * Méthode pour connecter 2 devices ensemble
+	 * @param d1
+	 * @param d2
+	 * @param nb
+	 * @param i1
+	 */
 	public void connectDevice(Device d1, Device d2, int nb, Interface i1) {
 		i1.connect(d1, d2, nb);
 		System.out.println(i1);
 		System.out.println(d2.getInterfaceByIndex(nb));
 	}
 	
+	/**
+	 * Méthode pour ajouter un device dans un réseau
+	 * @param n
+	 * @param d
+	 */
 	public void addDeviceInNetwork(Network n, Device d) {
 		deviceInNetwork("add", n, d);
 		System.out.println("## Le device " + d.getName() + " a été ajouté au réseau " + n.getIp() + "/" + n.getMasque() + " ! ##\n");
 	}
 	
+	/**
+	 * Méthode pour voir la liste de tous les devices d'un réseau précis
+	 * @param n
+	 */
 	public void showAllDevicesInNetwork(Network n) {
 		if(! n.getDevices().isEmpty()) {			
 			System.out.println(n.getDevices());
@@ -102,11 +155,22 @@ public class Web {
 		}
 	}
 	
+	/**
+	 * Méthode pour supprimer un device de son réseau
+	 * @param n
+	 * @param d
+	 */
 	public void removeDeviceInNetwork(Network n, Device d) {
 		deviceInNetwork("remove", n, d);
 		System.out.println("## Le device " + d.getName() + " a été supprimé du réseau " + n.getIp() + "/" + n.getMasque() + " ! ##\n");
 	}
 	
+	/**
+	 * Méthode pour ajouter un device dans un réseau
+	 * @param type
+	 * @param n
+	 * @param d
+	 */
 	public void deviceInNetwork(String type, Network n, Device d) {
 		if(type == "add") {
 			n.addHost(d);
@@ -117,6 +181,10 @@ public class Web {
 		}
 	}
 	
+	/**
+	 * Méthode pour ajouter un serveur
+	 * @param tmp
+	 */
 	private void addServer(Server tmp) {
 		if(! devices.contains(tmp)) {
 			devices.add(tmp);
@@ -126,6 +194,10 @@ public class Web {
 		}
 	}
 	
+	/**
+	 * Méthode pour ajouter un client
+	 * @param tmp
+	 */
 	private void addClient(Client tmp) {
 		if(! devices.contains(tmp)) {
 			devices.add(tmp);
