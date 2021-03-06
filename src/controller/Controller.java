@@ -349,17 +349,39 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Méthode pour afficher le terminal d'un device
+	 */
 	private void promptDevice() {
 		if(web.getDevices().size() > 0) {
 			scan = new Scanner(System.in);
+			System.out.println("\nA quel device voulez-vous accéder ?");
 			
 			boucleOnDevice(web.getDevices(), null);
 			
-//			int nb = scan.nextInt();
-//			Device d = web.getDevices().get(nb);
+			int nb = scan.nextInt();
+			Device d = web.getDevices().get(nb);
+			String data = "";
+			while(! data.equals("exit")) {	
+				data = scan.nextLine();
+				if(data.equals("ip addr")) {
+					System.out.print(defaultTextPrompt(d) + " " + d.getIp());
+				} else {					
+					System.out.print(defaultTextPrompt(d));
+				}
+			}
 		} else {
-			System.out.println("Il n'y a aucun device !");
+			System.out.println("\nIl n'y a aucun device !\n");
 		}
+	}
+	
+	/**
+	 * Méthode pour afficher le texte de base d'un terminal
+	 * @param d
+	 * @return
+	 */
+	private String defaultTextPrompt(Device d) {
+		return d.getName() + ">>";
 	}
 	
 }

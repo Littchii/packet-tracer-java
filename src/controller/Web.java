@@ -220,7 +220,7 @@ public class Web {
 	}
 	
 	private void displayClientError(Client c) {
-		System.out.println("\n" + c.getType() + " " + c.getName() + " avec l'ip " + c.getIp() + " existe déjà !\n");
+		System.out.println("\nL'ip " + c.getIp() + " existe déjà !\n");
 	}
 	
 }

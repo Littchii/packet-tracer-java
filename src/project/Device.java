@@ -11,12 +11,14 @@ public class Device {
 	private String type;
 	private List<Interface> interfaces;
 	private boolean inNetwork;
+	private String ip;
 	
-	public Device(String n, int inter, String t) {
+	public Device(String n, int inter, String t, String ip) {
 		name = n;
 		interfaces = new ArrayList<>();
 		type = t;
 		inNetwork = false;
+		this.ip = ip;
 		init(inter);
 	}
 	
@@ -41,6 +43,10 @@ public class Device {
 	public boolean getInNetwork() {
 		return inNetwork;
 	}
+	
+	public String getIp() {
+        return ip;
+    }
 	
 	public void setInNetwork(boolean bool) {
 		inNetwork = bool;
@@ -86,7 +92,12 @@ public class Device {
     public boolean equals(Object o) {
     	if(o instanceof Device) {
     		Device other = (Device) o;
-    		return name.equals(other.name) && type.equals(other.type);
+    		boolean b = (name.equals(other.name) && type.equals(other.type));
+    		if(ip.equals("")) {
+    			return b;
+    		} else {
+    			return b || ip.equals(other.ip);
+    		}
     	}
     	return false;
     }
