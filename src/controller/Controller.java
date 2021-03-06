@@ -39,7 +39,9 @@ public class Controller {
 		System.out.println("-----------------------------");
 		System.out.println("10. Voir la liste des réseaux");
 		System.out.println("11. Voir la liste des clients");
-		System.out.println("12. Voir la liste des serveurs\n");
+		System.out.println("12. Voir la liste des serveurs");
+		System.out.println("-----------------------------");
+		System.out.println("13. Rentrer dans le terminal d'un device\n");
 		System.out.print("Choisir un chiffre : ");
 		scan = new Scanner(System.in);
 		if(scan.hasNextInt()) {
@@ -80,6 +82,9 @@ public class Controller {
 					break;
 				case 12:
 					showServers();
+					break;
+				case 13:
+					promptDevice();
 					break;
 			}
 			options();
@@ -285,14 +290,12 @@ public class Controller {
 	 * @param type
 	 */
 	public void boucleOnNetwork(boolean type) {
-		if(type) {			
-			for(int i = 0; i < web.getNetworks().size(); i++) {
-				if(web.getNetworks().get(i).getDevices().size() > 0) {					
+		for(int i = 0; i < web.getNetworks().size(); i++) {
+			if(type) {
+				if(! web.getNetworks().get(i).getDevices().isEmpty()) {					
 					System.out.println(i + " - " + web.getNetworks().get(i));
 				}
-			}
-		} else {
-			for(int i = 0; i < web.getNetworks().size(); i++) {			
+			} else {
 				System.out.println(i + " - " + web.getNetworks().get(i));
 			}
 		}
@@ -343,6 +346,19 @@ public class Controller {
 			System.out.println("Aucun serveur a été crée !");
 		} else {
 			System.out.println(servers);
+		}
+	}
+	
+	private void promptDevice() {
+		if(web.getDevices().size() > 0) {
+			scan = new Scanner(System.in);
+			
+			boucleOnDevice(web.getDevices(), null);
+			
+//			int nb = scan.nextInt();
+//			Device d = web.getDevices().get(nb);
+		} else {
+			System.out.println("Il n'y a aucun device !");
 		}
 	}
 	
