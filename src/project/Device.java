@@ -74,16 +74,6 @@ public class Device {
 		return count;
 	}
 	
-	public int getNumberOfInterfaceAvailable() {
-		int count = 0;
-		for(int i = 0; i < interfaces.size(); i++) {			
-			if(! interfaces.get(i).isUsed()) {
-				count++;
-			}
-		}
-		return count;
-	}
-	
 	public int getNumberOfInterface() {
 		return interfaces.size();
 	}
@@ -104,7 +94,7 @@ public class Device {
 	
 	@Override
 	public String toString() {
-		return type + " - \"" + name + "\" avec " + interfaces.size() +" interfaces dont " + getNumberOfInterfaceAvailable() + " interface(s) disponible(s)";
+		return type + " - \"" + name + "\" avec " + interfaces.size() +" interfaces dont " + getNumberOfNotConnectedInterface() + " interface(s) disponible(s)";
 	}
 	
 }
