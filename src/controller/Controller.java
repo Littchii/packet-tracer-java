@@ -350,7 +350,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Méthode pour afficher le terminal d'un device
+	 * Méthode pour afficher le terminal d'un device et effectuer des opérations
 	 */
 	private void promptDevice() {
 		if(web.getDevices().size() > 0) {
@@ -366,7 +366,14 @@ public class Controller {
 				data = scan.nextLine();
 				if(data.equals("ip addr")) {
 					System.out.print(defaultTextPrompt(d) + " " + d.getIp());
-				} else {					
+				} else if(data.matches("ping \\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b")) {		
+					String ip = data.substring(5, data.length());
+					if(ip.equals(d.getIp())) {
+						System.out.print(defaultTextPrompt(d) + " La connexion est bien établie !");
+					} else {
+						System.out.print(defaultTextPrompt(d) + " sexe");
+					}
+				} else {
 					System.out.print(defaultTextPrompt(d));
 				}
 			}
