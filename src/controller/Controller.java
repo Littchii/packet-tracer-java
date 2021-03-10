@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -371,7 +372,27 @@ public class Controller {
 					if(ip.equals(d.getIp())) {
 						System.out.print(defaultTextPrompt(d) + " La connexion est bien établie !");
 					} else {
-						System.out.print(defaultTextPrompt(d) + " sexe");
+						List<Interface> tmp = new ArrayList<>();
+						for(int i = 0; i < d.getInterfaces().size(); i++) {
+							if(d.getInterfaceByIndex(i).isUsed()) {
+								tmp.add(d.getInterfaceByIndex(i));
+							} 
+						}
+						
+						List<Boolean> b = new ArrayList<>();
+						for(int i = 0; i < tmp.size(); i++) {
+							if(tmp.get(i).getLinkedDevice().getIp().equals(ip)) {
+								b.add(true);
+							} else {
+								b.add(false);
+							}
+						}
+						
+						if(b.contains(true)) {
+							System.out.print(defaultTextPrompt(d) + " La connexion est bien établie !");
+						} else {
+							System.out.print(defaultTextPrompt(d) + " La connexion n'a pas abouti !");
+						}
 					}
 				} else {
 					System.out.print(defaultTextPrompt(d));
