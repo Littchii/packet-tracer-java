@@ -358,7 +358,9 @@ public class Controller {
 			scan = new Scanner(System.in);
 			System.out.println("\nA quel device voulez-vous accéder ?");
 			
-			boucleOnDevice(web.getDevices(), null);
+			for(int i = 0; i < web.getDevices().size(); i++) {
+				System.out.println(i + " - " + web.getDevices().get(i));
+			}
 			
 			int nb = scan.nextInt();
 			Device d = web.getDevices().get(nb);
@@ -372,27 +374,7 @@ public class Controller {
 					if(ip.equals(d.getIp())) {
 						System.out.print(defaultTextPrompt(d) + " La connexion est bien établie !");
 					} else {
-						List<Interface> tmp = new ArrayList<>();
-						for(int i = 0; i < d.getInterfaces().size(); i++) {
-							if(d.getInterfaceByIndex(i).isUsed()) {
-								tmp.add(d.getInterfaceByIndex(i));
-							} 
-						}
-						
-						List<Boolean> b = new ArrayList<>();
-						for(int i = 0; i < tmp.size(); i++) {
-							if(tmp.get(i).getLinkedDevice().getIp().equals(ip)) {
-								b.add(true);
-							} else {
-								b.add(false);
-							}
-						}
-						
-						if(b.contains(true)) {
-							System.out.print(defaultTextPrompt(d) + " La connexion est bien établie !");
-						} else {
-							System.out.print(defaultTextPrompt(d) + " La connexion n'a pas abouti !");
-						}
+						checkConnectedDevices(d, ip);
 					}
 				} else {
 					System.out.print(defaultTextPrompt(d));
@@ -401,6 +383,26 @@ public class Controller {
 		} else {
 			System.out.println("\nIl n'y a aucun device !\n");
 		}
+	}
+	
+	private void checkConnectedDevices(Device d, String ip) {
+		List<Server> s = new ArrayList<>();
+		for(int i = 0; i < d.getInterfaces().size(); i ++) {
+			if(d.getInterfaceByIndex(i).getLinkedDevice() instanceof Server) {
+				s.add((Server) d.getInterfaceByIndex(i).getLinkedDevice());
+			}
+		}
+				
+		for(int i = 0; i < s.size(); i++) {
+			for(Device element: s.get(i).getDevices()) {
+				if(element.getIp().equals(ip)) {
+					System.out.print(defaultTextPrompt(d) + " La connexion a abouti !");
+					return;
+				}
+			}			
+		}
+				
+		System.out.print(defaultTextPrompt(d) + " La connexion n'a pas abouti !");
 	}
 	
 	/**

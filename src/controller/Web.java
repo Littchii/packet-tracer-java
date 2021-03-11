@@ -128,9 +128,23 @@ public class Web {
 	 * @param i1
 	 */
 	public void connectDevice(Device d1, Device d2, int nb, Interface i1) {
-		i1.connect(d1, d2, nb);
-		System.out.println(i1);
-		System.out.println(d2.getInterfaceByIndex(nb));
+		if(! (d1 instanceof Client && d2 instanceof Client)) {	
+			if((d1 instanceof Server && d2 instanceof Server)) {
+				((Server) d1).addDevices(d2);
+				((Server) d2).addDevices(d1);
+			} else {				
+				if(d1 instanceof Server) {
+					((Server) d1).addDevices(d2);
+				} else {
+					((Server) d2).addDevices(d1);
+				}
+			}
+			i1.connect(d1, d2, nb);
+			System.out.println(i1);
+			System.out.println(d2.getInterfaceByIndex(nb));
+		} else {
+			System.out.println("Vous ne pouvez pas connecter 2 clients ensemble !");
+		}
 	}
 	
 	/**
