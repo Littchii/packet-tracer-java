@@ -358,26 +358,29 @@ public class Controller {
 			scan = new Scanner(System.in);
 			System.out.println("\nA quel device voulez-vous accéder ?");
 
-			for(int i = 0; i < web.getDevices().size(); i++) {
-				System.out.println(i + " - " + web.getDevices().get(i));
+			for(int i = 0; i < web.getDevices().size(); i++) { // On boucle sur tous les devices de type Client
+				if(web.getDevices().get(i) instanceof Client) {					
+					System.out.println(i + " - " + web.getDevices().get(i));
+				}
 			}
 
 			int nb = scan.nextInt();
 			Device d = web.getDevices().get(nb);
 			String data = "";
-			while(!data.equals("exit")) {
+			while(!data.equals("exit")) { // On rentre dans la boucle pour simuler la console
 				data = scan.nextLine();
-				if(data.equals("ip addr")) {
+				if(data.equals("ip addr")) { // On vérifie ce qui a été tapé
 					System.out.print(defaultTextPrompt(d) + " " + d.getIp());
 				} else if(data.matches("ping \\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b")) {
-					String ip = data.substring(5, data.length());
-					if(ip.equals(d.getIp())) {
+					String ip = data.substring(5, data.length()); // On récupère l'IP
+					if(ip.equals(d.getIp())) { // On a tapé notre propre IP
 						System.out.print(defaultTextPrompt(d) + " L'IP rentrée est votre propre IP !");
 					} else {
 						boolean result = checkConnectedDevices(d, ip, new ArrayList<>());
-						if(result) {
+						// On vérifie grâce à checkConnectedDevices si le device est connecté à l'IP rentrée
+						if(result) { // S'il est connecté
 							System.out.println(defaultTextPrompt(d) + "La connexion est un succès !");
-						} else {
+						} else { // Sinon
 							System.out.println(defaultTextPrompt(d) + "La connexion est un échec ! ");
 						}
 						System.out.print(defaultTextPrompt(d));
