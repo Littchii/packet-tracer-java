@@ -372,9 +372,9 @@ public class Controller {
 				} else if(data.matches("ping \\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b")) {		
 					String ip = data.substring(5, data.length());
 					if(ip.equals(d.getIp())) {
-						System.out.print(defaultTextPrompt(d) + " La connexion est bien établie !");
+						System.out.print(defaultTextPrompt(d) + " L'IP rentrée est votre propre IP !");
 					} else {
-						checkConnectedDevices(d, ip);
+						checkConnectedDevices(d, ip, null);
 					}
 				} else {
 					System.out.print(defaultTextPrompt(d));
@@ -385,10 +385,15 @@ public class Controller {
 		}
 	}
 	
-	private void checkConnectedDevices(Device d, String ip) {
+	/**
+	 * Méthode pour vérifier si le device correspondant à l'IP du ping est connecté au device sur lequel on ping
+	 * @param d
+	 * @param ip
+	 */
+	private void checkConnectedDevices(Device d, String ip, Device d2) {
 		List<Server> s = new ArrayList<>();
 		for(int i = 0; i < d.getInterfaces().size(); i ++) {
-			if(d.getInterfaceByIndex(i).getLinkedDevice() instanceof Server) {
+			if(d.getInterfaceByIndex(i).getLinkedDevice() instanceof Server && !d.equals(d2)) {
 				s.add((Server) d.getInterfaceByIndex(i).getLinkedDevice());
 			}
 		}
@@ -396,13 +401,21 @@ public class Controller {
 		for(int i = 0; i < s.size(); i++) {
 			for(Device element: s.get(i).getDevices()) {
 				if(element.getIp().equals(ip)) {
-					System.out.print(defaultTextPrompt(d) + " La connexion a abouti !");
+					System.out.print(defaultTextPrompt(d) + " La connexion est un succès !");
 					return;
 				}
 			}			
 		}
-				
-		System.out.print(defaultTextPrompt(d) + " La connexion n'a pas abouti !");
+		
+		if(s.isEmpty()) {
+			System.out.print(defaultTextPrompt(d) + " La connexion est un échec !");
+		} else {
+			for(int i = 0; i < d.getInterfaces().size(); i ++) {
+				if(d.getInterfaceByIndex(i).getLinkedDevice() instanceof Server && !d.getInterfaceByIndex(i).getLinkedDevice().equals(d2)) {
+					checkConnectedDevices(d.getInterfaceByIndex(i).getLinkedDevice(), ip, d);
+				}
+			}
+		}
 	}
 	
 	/**

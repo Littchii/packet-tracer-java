@@ -143,7 +143,8 @@ public class Web {
 			System.out.println(i1);
 			System.out.println(d2.getInterfaceByIndex(nb));
 		} else {
-			System.out.println("Vous ne pouvez pas connecter 2 clients ensemble !");
+			System.out.println("\nVous ne pouvez pas connecter 2 clients ensemble !");
+			System.out.println("Veuillez connecter un client à un serveur ou un serveur à un serveur.\n");
 		}
 	}
 	
