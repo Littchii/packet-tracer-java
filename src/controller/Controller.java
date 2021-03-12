@@ -351,30 +351,36 @@ public class Controller {
 	}
 	
 	/**
-	 * Méthode pour afficher le terminal d'un device et effectuer des opérations
+	 * Méthode qui affiche la console d'un device
 	 */
 	private void promptDevice() {
-		if(web.getDevices().size() > 0) {
+		if(!web.getDevices().isEmpty()) {
 			scan = new Scanner(System.in);
 			System.out.println("\nA quel device voulez-vous accéder ?");
-			
+
 			for(int i = 0; i < web.getDevices().size(); i++) {
 				System.out.println(i + " - " + web.getDevices().get(i));
 			}
-			
+
 			int nb = scan.nextInt();
 			Device d = web.getDevices().get(nb);
 			String data = "";
-			while(! data.equals("exit")) {	
+			while(!data.equals("exit")) {
 				data = scan.nextLine();
 				if(data.equals("ip addr")) {
 					System.out.print(defaultTextPrompt(d) + " " + d.getIp());
-				} else if(data.matches("ping \\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b")) {		
+				} else if(data.matches("ping \\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b")) {
 					String ip = data.substring(5, data.length());
 					if(ip.equals(d.getIp())) {
 						System.out.print(defaultTextPrompt(d) + " L'IP rentrée est votre propre IP !");
 					} else {
-						checkConnectedDevices(d, ip, null);
+						boolean result = checkConnectedDevices(d, ip, new ArrayList<>());
+						if(result) {
+							System.out.println(defaultTextPrompt(d) + "La connexion est un succès !");
+						} else {
+							System.out.println(defaultTextPrompt(d) + "La connexion est un échec ! ");
+						}
+						System.out.print(defaultTextPrompt(d));
 					}
 				} else {
 					System.out.print(defaultTextPrompt(d));
@@ -386,36 +392,30 @@ public class Controller {
 	}
 	
 	/**
-	 * Méthode pour vérifier si le device correspondant à l'IP du ping est connecté au device sur lequel on ping
+	 * Méthode qui renvoie true si le device est bien connecté à l'ip et false sinon
 	 * @param d
 	 * @param ip
+	 * @param toExclude
+	 * @return
 	 */
-	private void checkConnectedDevices(Device d, String ip, Device d2) {
-		List<Server> s = new ArrayList<>();
-		for(int i = 0; i < d.getInterfaces().size(); i ++) {
-			if(d.getInterfaceByIndex(i).getLinkedDevice() instanceof Server && !d.equals(d2)) {
-				s.add((Server) d.getInterfaceByIndex(i).getLinkedDevice());
+	private boolean checkConnectedDevices(Device d, String ip, List<Device> toExclude) {
+		List<Device> connectedDevice = new ArrayList<>();
+		for(Interface inter : d.getInterfaces()) {
+			Device linked = inter.getLinkedDevice();
+			if(linked != null && !toExclude.contains(linked)) {
+				connectedDevice.add(linked);
+				toExclude.add(linked);
 			}
 		}
-				
-		for(int i = 0; i < s.size(); i++) {
-			for(Device element: s.get(i).getDevices()) {
-				if(element.getIp().equals(ip)) {
-					System.out.print(defaultTextPrompt(d) + " La connexion est un succès !");
-					return;
-				}
-			}			
-		}
-		
-		if(s.isEmpty()) {
-			System.out.print(defaultTextPrompt(d) + " La connexion est un échec !");
-		} else {
-			for(int i = 0; i < d.getInterfaces().size(); i ++) {
-				if(d.getInterfaceByIndex(i).getLinkedDevice() instanceof Server && !d.getInterfaceByIndex(i).getLinkedDevice().equals(d2)) {
-					checkConnectedDevices(d.getInterfaceByIndex(i).getLinkedDevice(), ip, d);
-				}
+		for(Device device : connectedDevice) {
+			if(device.getIp().equals(ip)) {
+				return true;
+			}
+			if(device instanceof Server) {
+				return checkConnectedDevices(device, ip, toExclude);
 			}
 		}
+		return false;
 	}
 	
 	/**
