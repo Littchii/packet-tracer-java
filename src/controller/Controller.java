@@ -385,8 +385,15 @@ public class Controller {
 						}
 						System.out.print(defaultTextPrompt(d));
 					}
-				} else {
+				} else if(data.equals("help")) { // On vérifie si l'utilisateur veut afficher de l'aide pour les commandes
+					System.out.print(defaultTextPrompt(d) + " Voici les commandes disponibles dans la console :\n");
+					System.out.println("ip addr -> Affiche l'IP du device sur lequel on est.");
+					System.out.println("ping x.x.x.x -> Vérifie si le device correspondant à l'IP est connecté à ce device.");
+					System.out.println("help -> Affiche les commandes disponibles.");
+					System.out.println("exit -> Quitte la console actuelle.");
 					System.out.print(defaultTextPrompt(d));
+				} else {
+					System.out.print(defaultTextPrompt(d));					
 				}
 			}
 		} else {
@@ -422,7 +429,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Méthode pour afficher le texte de base d'un terminal
+	 * Méthode pour afficher le texte de base de la console
 	 * @param d
 	 * @return
 	 */
