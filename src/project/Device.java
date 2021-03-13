@@ -13,13 +13,13 @@ public class Device {
 	private boolean inNetwork;
 	private String ip;
 	
-	public Device(String n, int inter, String t, String ip) {
+	public Device(String n, int nbInterface, String t, String ip) {
 		name = n;
 		interfaces = new ArrayList<>();
 		type = t;
 		inNetwork = false;
 		this.ip = ip;
-		init(inter);
+		init(nbInterface);
 	}
 	
 	private void init(int n) {
@@ -50,14 +50,6 @@ public class Device {
 	
 	public void setInNetwork(boolean bool) {
 		inNetwork = bool;
-	}
-	
-	public String inter() {
-		String str = "";
-		for ( int i = 0; i < interfaces.size(); i++ ) {
-			str += interfaces.get(i) + " ";
-		}
-		return str;
 	}
 	
 	public Interface getInterfaceByIndex(int index) {
