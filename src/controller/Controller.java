@@ -390,8 +390,11 @@ public class Controller {
 					System.out.println("ip addr -> Affiche l'IP du device sur lequel on est.");
 					System.out.println("ping x.x.x.x -> Vérifie si le device correspondant à l'IP est connecté à ce device.");
 					System.out.println("help -> Affiche les commandes disponibles.");
+					System.out.println("network -> Affiche le réseau du device actuel.");
 					System.out.println("exit -> Quitte la console actuelle.");
 					System.out.print(defaultTextPrompt(d));
+				} else if(data.equals("network")) {
+					checkDeviceNetwork(d);
 				} else {
 					System.out.print(defaultTextPrompt(d));					
 				}
@@ -426,6 +429,22 @@ public class Controller {
 			}
 		}
 		return false;
+	}
+	
+	private void checkDeviceNetwork(Device d) {
+		if(! web.getNetworks().isEmpty()) {			
+			for(int i = 0; i < web.getNetworks().size(); i++) {
+				for(Device device : web.getNetworks().get(i).getDevices()) {
+					if(device.getIp().equals(d.getIp())) {
+						System.out.println(defaultTextPrompt(d) + " " + web.getNetworks().get(i).getIp()+"/"+web.getNetworks().get(i).getMasque());
+						System.out.print(defaultTextPrompt(d));
+						return;
+					}
+				}
+			}
+		}
+		System.out.println(defaultTextPrompt(d) + " Le device n'appartient à aucun réseau !");
+		System.out.print(defaultTextPrompt(d));
 	}
 	
 	/**
